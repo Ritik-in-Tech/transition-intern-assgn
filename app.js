@@ -1,6 +1,6 @@
 const express = require("express");
 const userRoutes = require("./routes/userRoutes");
-const { swaggerUi, specs } = require("./config/swaggerconfig"); // Import swagger config
+const { swaggerUi, specs } = require("./config/swaggerconfig");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
