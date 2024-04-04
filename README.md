@@ -41,6 +41,8 @@ To access it go to your browser and type localhost:<port>
 
 ##### To see the swagger UI for the api calls go to this localhost:<port>/api-docs
 
+#### Note: Firebase authentication is only done correctly if you have uploaded your pair key of the service accounts in the key.json file or any other but you have to specify it while importing so that there is not found module error not come. Here I have not shared it due to the security issue I have put it on the .gitignore file.
+
 ### Note: To run the seed scrips to add data to the mongodb localhost Please follow these commands
 
 1. First go to the seed folder from the root directory using the command
