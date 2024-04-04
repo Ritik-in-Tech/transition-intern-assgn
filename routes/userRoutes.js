@@ -5,6 +5,7 @@ const {
   editUser,
   updateUser,
 } = require("../controllers/userController");
+const { authenticate } = require("../controllers/firebaseauthentication");
 
 /**
  * @swagger
@@ -125,5 +126,39 @@ router.put("/edit-user", editUser); // to edit the user details
  *         description: Internal server error
  */
 router.patch("/update-user", updateUser); // to update the user details
+
+/**
+ * @swagger
+ * /api/login-firebase:
+ *   post:
+ *     summary: Authenticate user using Firebase
+ *     description: Endpoint to authenticate a user using Firebase Authentication.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: User authenticated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '400':
+ *         description: Invalid request body or missing fields
+ *       '401':
+ *         description: Authentication failed
+ */
+router.post("/login-firebase", authenticate);
 
 module.exports = router;
