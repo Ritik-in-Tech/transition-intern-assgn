@@ -21,7 +21,7 @@ mongoose
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs)); // Setup Swagger UI
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api", userRoutes);
 
 app.listen(process.env.PORT || 3000, () => {
