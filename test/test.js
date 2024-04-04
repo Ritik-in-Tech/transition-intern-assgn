@@ -1,67 +1,47 @@
-const chai = require("chai");
-const chaiHttp = require("chai-http");
+const request = require("supertest");
 const app = require("../app");
-const expect = chai.expect;
-
-chai.use(chaiHttp);
-
+const mongoose = require("mongoose");
 describe("User Controller", () => {
-  it("should add a new user", (done) => {
-    chai
-      .request(app)
-      .post("/api/add-user")
-      .send({
-        name: "John Doe",
-        email: "john@example.com",
-        password: "password",
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(201);
-        expect(res.body)
-          .to.have.property("message")
-          .equal("User created successfully.");
-        expect(res.body).to.have.property("newuser");
-        done();
-      });
+  it("should add a new user", async () => {
+    const response = await request(app).post("/api/add-user").send({
+      name: "Ramesh",
+      email: "riet@gmail.com",
+      password: "123",
+    });
+
+    expect(response.status).toBe(201);
+    expect(response.body.message).toBe("User created successfully.");
+    expect(response.body).toHaveProperty("newuser");
   });
 
-  it("should edit user details", (done) => {
-    chai
-      .request(app)
-      .put("/api/edit-user")
-      .send({
-        id: "user_id",
-        name: "Updated Name",
-        email: "updated@example.com",
-        password: "newpassword",
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body)
-          .to.have.property("message")
-          .equal("User edited successfully.");
-        expect(res.body).to.have.property("editedUser");
-        done();
-      });
+  it("should edit user details", async () => {
+    const response = await request(app).put("/api/edit-user").send({
+      id: "660d8d0d97153fee49b9d9a8",
+      name: "ritik_tiwari",
+      email: "tie.2@iitj.ac.in",
+      password: "12",
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe("User edited successfully.");
+    expect(response.body).toHaveProperty("editedUser");
   });
 
-  it("should update user details", (done) => {
-    chai
-      .request(app)
-      .patch("/api/update-user")
-      .send({
-        id: "user_id",
-        name: "Updated Name",
-        email: "updated@example.com",
-        password: "newpassword",
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body)
-          .to.have.property("message")
-          .equal("User updated successfully");
-        expect(res.body).to.have.property("updateduser");
-        done();
-      });
+  it("should update user details", async () => {
+    const response = await request(app).patch("/api/update-user").send({
+      id: "660d8d0d97153fee49b9d9a8",
+      name: "ritik_tiwari",
+      email: "tie.2@iitj.ac.in",
+      password: "12",
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe("User updated successfully");
+    expect(response.body).toHaveProperty("updateduser");
   });
+});
+
+afterAll(async () => {
+  // Close MongoDB connection
+  await mongoose.disconnect();
 });
