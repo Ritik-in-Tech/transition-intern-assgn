@@ -5,7 +5,7 @@ describe("User Controller", () => {
   it("should add a new user", async () => {
     const response = await request(app).post("/api/add-user").send({
       name: "Ramesh",
-      email: "riet@gmail.com",
+      email: "ramesh@gmail.com",
       password: "123",
     });
 
